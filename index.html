@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenDookan - Organic Grocery Demo</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-green: #22c55e;
+      --dark-green: #16a34a;
+      --light-green: #dcfce7;
+      --white: #ffffff;
+      --light-gray: #f8fafc;
+      --gray: #64748b;
+      --dark-gray: #334155;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--light-gray);
+      color: var(--dark-gray);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-green);
+    }
+
+    .nav-brand i {
+      font-size: 2.2rem;
+    }
+
+    .cart-btn {
+      position: relative;
+      background: var(--primary-green);
+      color: var(--white);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+
+    .cart-btn:hover {
+      background: var(--dark-green);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cart-count {
+      background: var(--white);
+      color: var(--primary-green);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      position: absolute;
+      top: -8px;
+      right: -8px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+      color: var(--white);
+      padding: 4rem 2rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .hero-features span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .hero-features i {
+      color: #dcfce7;
+      font-size: 1.2rem;
+    }
+
+    .hero-images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .hero-img {
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .main-img {
+      grid-row: 1 / 3;
+      width: 100%;
+      height: 280px;
+    }
+
+    .small-img {
+      width: 100%;
+      height: 130px;
+    }
+
+    .demo-note {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      color: #92400e;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .category-section {
+      margin-bottom: 3rem;
+    }
+
+    .category-section h2 {
+      color: var(--dark-gray);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-filter {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      background: var(--white);
+      border: 2px solid var(--light-green);
+      color: var(--primary-green);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: var(--primary-green);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--light-green);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .product-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+    }
+
+    .product-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      border: 2px solid var(--light-green);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      background: var(--light-green);
+      border: none;
+      color: var(--primary-green);
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .qty-btn:hover {
+      background: var(--primary-green);
+      color: var(--white);
+    }
+
+    .qty-input {
+      border: none;
+      width: 60px;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      font-size: 1rem;
+    }
+
+    .add-to-cart-btn {
+      background: var(--primary-green);
+      color: var(--white);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--dark-green);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .nav-container {
+        padding: 1rem;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-features {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i class="fas fa-leaf"></i>
+        <span>GreenDookan</span>
+      </div>
+      <div class="nav-actions">
+        <button class="cart-btn" onclick="showDemo()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">2</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Fresh & Organic Groceries</h1>
+          <p>Delivering fresh produce from local farms to your doorstep.</p>
+          <div class="hero-features">
+            <span><i class="fas fa-shipping-fast"></i> Fast Delivery</span>
+            <span><i class="fas fa-seedling"></i> Organic Produce</span>
+            <span><i class="fas fa-leaf"></i> Sustainable Packaging</span>
+          </div>
+        </div>
+        <div class="hero-images">
+          <div class="hero-image-grid">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600" alt="Veg" class="hero-img main-img">
+            <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?w=400" alt="Fruits" class="hero-img small-img">
+            <img src="https://images.unsplash.com/photo-1582515073490-3998133e07f3?w=400" alt="Vegetables" class="hero-img small-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-note">
+      <i class="fas fa-info-circle"></i>
+      <strong>Frontend Demo:</strong> This shows the demo UI. To run the full application, deploy the WAR to a Tomcat server and ensure the database is configured.
+    </div>
+
+    <section class="category-section">
+      <h2>Shop by Category</h2>
+      <div class="category-filter">
+        <button class="category-btn active">All Products</button>
+        <button class="category-btn">Fruits & Vegetables</button>
+        <button class="category-btn">Dairy & Eggs</button>
+        <button class="category-btn">Pantry & Dry Goods</button>
+      </div>
+    </section>
+
+    <section class="products-section">
+      <div class="products-grid">
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300" alt="Fresh Bananas" class="product-image">
+          <div class="product-info">
+            <h3 class="product-name">Fresh Bananas</h3>
+            <p class="product-description">Ripe yellow bananas, perfect for snacking</p>
+            <div class="product-price">$2.99</div>
+            <div class="product-actions">
+              <div class="quantity-selector">
+                <button class="qty-btn"><i class="fas fa-minus"></i></button>
+                <input type="number" class="qty-input" value="1" min="1">
+                <button class="qty-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <button class="add-to-cart-btn" onclick="showDemo()">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showDemo() {
+      alert('Frontend Demo\n\nDeploy the WAR to Tomcat and visit /GreenDookan');
+    }
+  </script>
+</body>
+
+</html>

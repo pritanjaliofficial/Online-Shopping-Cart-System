@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: pblj-shopping-cart
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    # Render will map to $PORT; Tomcat uses 8080 by default, Render sets PORT env automatically.
